@@ -11,9 +11,7 @@
 <div id="app">
     <v-app>
         <v-main>
-            <v-container>
-                <auth-component></auth-component>
-            </v-container>
+            <auth-component></auth-component>
         </v-main>
     </v-app>
 </div>

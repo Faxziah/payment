@@ -8,10 +8,15 @@ import axios from 'axios';
 Vue.use(Vuetify)
 Vue.component('auth-component', require('./components/AuthComponent.vue').default)
 Vue.component('payment-component', require('./components/admin/PaymentComponent.vue').default)
-Vue.component('sidebar-component', require('./components/admin/SidebarComponent.vue').default)
+
+const vuetify = new Vuetify({
+    icons: {
+        iconfont: 'mdiSvg', // Выберите нужный формат (mdi, mdiSvg, md, fa, fa4, faSvg)
+    },
+});
 
 const app = new Vue({
-    vuetify: new Vuetify(),
+    vuetify: vuetify,
     el: '#app',
 })
 

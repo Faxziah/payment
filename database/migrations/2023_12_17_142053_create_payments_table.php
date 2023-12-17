@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('outer_id');
+            $table->string('outer_payment_id');
             $table->enum('type', ['deposit', 'withdrawal']);
-            $table->string('login');
+            $table->string('user_login');
             $table->text('requisites');
             $table->integer('sum');
             $table->string('currency');

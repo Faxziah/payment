@@ -11,9 +11,7 @@
 <div id="app">
     <v-app>
         <v-main>
-            <v-container>
-                <payment-component></payment-component>
-            </v-container>
+            <payment-component :payments="{{ json_encode($payments) }}"></payment-component>
         </v-main>
     </v-app>
 </div>

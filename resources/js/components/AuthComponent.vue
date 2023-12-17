@@ -63,29 +63,24 @@ export default {
             axios.post('/auth', data)
                 .then(response => {
                     if (response.status === 200) {
-
-                        console.log(response.data.url)
-
                         window.location.href = response.data.url
                     } else {
                         this.error = response.data?.message
                     }
                 })
                 .catch(error => {
-                    if (error.response?.status === 422) {
-                        this.setValidationMessages(error.response.data.errors)
+                    const response = error.response
+
+                    if (response?.status === 422) {
+                        for (let field in response.data.errors) {
+                            this.validation[field] = []
+                            this.validation[field].push(response.data.errors[field][0])
+                        }
                     } else {
                         this.error = response.data?.message
                     }
                 })
         },
-
-        setValidationMessages(errors) {
-            for (let field in errors) {
-                this.validation[field] = []
-                this.validation[field].push(errors[field][0])
-            }
-        }
     },
 }
 

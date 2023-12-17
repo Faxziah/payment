@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PaymentController extends Controller
 {
@@ -14,7 +15,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $data['payments'] = Payment::all();
+        $data['payments'] = Payment::all()->toArray();
         return view('admin.payment')->with($data);
     }
 
@@ -31,7 +32,7 @@ class PaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -42,7 +43,7 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -53,7 +54,7 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -64,19 +65,47 @@ class PaymentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $arRequest = $request->all();
+
+        $arAllowedFields = [
+            // При необходимости добавить поля для возможности редактирования
+            'status'
+        ];
+
+        $validator = Validator::make($arRequest, [
+            'id' => 'required|numeric',
+            'field' => ['required', 'in:' . implode(',', $arAllowedFields)],
+            'value' => ['required', 'in:0,1'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['text' => $validator->errors()[0]], 422);
+        }
+
+        $record = Payment::find($arRequest['id']);
+
+        if (empty($record)) {
+            return response()->json(['text' => 'Запись не найдена'], 422);
+        }
+
+        // Обновите значение столбца
+        $record->update(['status' => $arRequest['value']]);
+
+        return [
+            'text' => 'Запись обновлена',
+        ];
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

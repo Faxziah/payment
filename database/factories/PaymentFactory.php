@@ -20,10 +20,10 @@ class PaymentFactory extends Factory
         $arUserLogins = \App\Models\User::pluck('login')->toArray();
 
         return [
-            'outer_id' => rand(10, 100),
+            'outer_payment_id' => rand(10, 100),
             'type' => $this->faker->randomElement(['deposit', 'withdrawal']),
-            'login' => $this->faker->randomElement($arUserLogins),
-            'requisites' => $this->faker->sentence(rand(1, 4)),
+            'user_login' => $this->faker->randomElement($arUserLogins),
+            'requisites' => $this->faker->sentence(rand(10, 50)),
             'sum' => rand(1000, 10000),
             'currency' => $this->faker->randomElement(['RUB', 'USD']),
             'status' => rand(0, 1),

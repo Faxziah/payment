@@ -25,4 +25,6 @@ Route::prefix("admin")
     Route::get("/dashboard", [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
 
     Route::get("/payment", [\App\Http\Controllers\PaymentController::class, 'index'])->name('payment');
+
+    Route::put("/payment", [\App\Http\Controllers\PaymentController::class, 'update'])->name('update');
 });

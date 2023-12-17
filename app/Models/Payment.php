@@ -10,4 +10,8 @@ class Payment extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    public $fillable = [
+        'status'
+    ];
 }
