@@ -12,7 +12,7 @@
     <v-app>
         <v-main>
             <v-container>
-                <auth-component></auth-component>
+                <payment-component></payment-component>
             </v-container>
         </v-main>
     </v-app>
