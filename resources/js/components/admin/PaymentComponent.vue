@@ -17,10 +17,11 @@
             >
 
                 <template v-slot:item.status="item">
-                    <select class="pointer" @change="updatePayment(item.item)">
+                    <select v-if="item.value === 0" class="pointer" @change="updatePayment(item.item)">
                         <option value=0 :selected="!! !item.value">Не оплачен</option>
                         <option value=1 :selected="!!item.value">Оплачен</option>
                     </select>
+                    <span v-else>Оплачен</span>
                 </template>
 
             </v-data-table>
@@ -77,8 +78,13 @@ export default {
             const select = event.target
             const newValue = Number (select.value)
 
-            if (newValue !== 0 && newValue !== 1) {
-                return 'Некорректное значение поля'
+            if (newValue !== 1) {
+                this.dialog = {
+                    show: true,
+                    title: 'Ошибка',
+                    text: 'Нельзя изменить статус оплаченного заказа'
+                }
+                return
             }
 
             const data = {
@@ -86,8 +92,6 @@ export default {
                 field: 'status',
                 value: newValue,
             }
-
-            console.log(data)
 
             axios.put('/admin/payment', data)
                 .then(response => {

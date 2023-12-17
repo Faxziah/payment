@@ -4,7 +4,7 @@
 
             <v-alert v-if="error" type="error">{{ error }}</v-alert>
 
-            <v-form fast-fail @submit.prevent="auth">
+            <v-form fast-fail @submit.prevent="login">
                 <v-text-field v-model="email"
                       label="Электронная почта"
                       type="email"
@@ -43,12 +43,7 @@ export default {
         }
     },
     methods: {
-
-        test() {
-            console.log(this.errors)
-        },
-
-        auth() {
+        login() {
             this.error = '';
             this.validation = {
                 email: [],
@@ -60,7 +55,7 @@ export default {
                 password: this.password
             }
 
-            axios.post('/auth', data)
+            axios.post('/login', data)
                 .then(response => {
                     if (response.status === 200) {
                         window.location.href = response.data.url

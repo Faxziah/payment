@@ -2212,10 +2212,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    test: function test() {
-      console.log(this.errors);
-    },
-    auth: function auth() {
+    login: function login() {
       var _this = this;
       this.error = '';
       this.validation = {
@@ -2226,7 +2223,7 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password
       };
-      axios.post('/auth', data).then(function (response) {
+      axios.post('/login', data).then(function (response) {
         if (response.status === 200) {
           window.location.href = response.data.url;
         } else {
@@ -2267,6 +2264,7 @@ __webpack_require__.r(__webpack_exports__);
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+//
 //
 //
 //
@@ -2369,15 +2367,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
       var select = event.target;
       var newValue = Number(select.value);
-      if (newValue !== 0 && newValue !== 1) {
-        return 'Некорректное значение поля';
+      if (newValue !== 1) {
+        this.dialog = {
+          show: true,
+          title: 'Ошибка',
+          text: 'Нельзя изменить статус оплаченного заказа'
+        };
+        return;
       }
       var data = {
         id: item.id,
         field: 'status',
         value: newValue
       };
-      console.log(data);
       axios.put('/admin/payment', data).then(function (response) {
         _this.dialog = {
           show: true,
@@ -20768,7 +20770,7 @@ var render = function () {
               on: {
                 submit: function ($event) {
                   $event.preventDefault()
-                  return _vm.auth.apply(null, arguments)
+                  return _vm.login.apply(null, arguments)
                 },
               },
             },
@@ -20886,43 +20888,45 @@ var render = function () {
                       key: "item.status",
                       fn: function (item) {
                         return [
-                          _c(
-                            "select",
-                            {
-                              staticClass: "pointer",
-                              on: {
-                                change: function ($event) {
-                                  return _vm.updatePayment(item.item)
-                                },
-                              },
-                            },
-                            [
-                              _c(
-                                "option",
+                          item.value === 0
+                            ? _c(
+                                "select",
                                 {
-                                  attrs: { value: "0" },
-                                  domProps: { selected: !!!item.value },
+                                  staticClass: "pointer",
+                                  on: {
+                                    change: function ($event) {
+                                      return _vm.updatePayment(item.item)
+                                    },
+                                  },
                                 },
-                                [_vm._v("Не оплачен")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  attrs: { value: "1" },
-                                  domProps: { selected: !!item.value },
-                                },
-                                [_vm._v("Оплачен")]
-                              ),
-                            ]
-                          ),
+                                [
+                                  _c(
+                                    "option",
+                                    {
+                                      attrs: { value: "0" },
+                                      domProps: { selected: !!!item.value },
+                                    },
+                                    [_vm._v("Не оплачен")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "option",
+                                    {
+                                      attrs: { value: "1" },
+                                      domProps: { selected: !!item.value },
+                                    },
+                                    [_vm._v("Оплачен")]
+                                  ),
+                                ]
+                              )
+                            : _c("span", [_vm._v("Оплачен")]),
                         ]
                       },
                     },
                   ],
                   null,
                   false,
-                  1055334095
+                  1635495392
                 ),
               })
             : _vm._e(),

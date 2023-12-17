@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/auth', [\App\Http\Controllers\AuthController::class, 'auth']);
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
 
 Route::prefix("admin")
     ->name("admin.")
