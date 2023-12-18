@@ -128,10 +128,6 @@ class PaymentController extends Controller
             return response()->json($data, 422);
         }
 
-        $request->validate([
-
-        ]);
-
         $query = Payment::query();
 
         $userLogin = $request->get('user_login');

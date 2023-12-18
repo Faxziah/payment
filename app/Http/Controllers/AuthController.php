@@ -30,6 +30,8 @@ class AuthController extends Controller
         }
 
         $data = [
+            'status' => 'error',
+            'code' => 401,
             'message' => 'Введены некорректные данные',
         ];
 
