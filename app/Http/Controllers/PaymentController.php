@@ -88,12 +88,7 @@ class PaymentController extends Controller
             return response()->json($data, 401);
         }
 
-        $payment = new Payment();
-
-        foreach ($arFields as $fieldName => $fieldValue) {
-            $payment->{$fieldName} = $fieldValue;
-        }
-        $payment->save();
+        Payment::create($arFields);
 
         $data = [
             'status' => 'success',

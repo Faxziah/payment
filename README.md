@@ -1,6 +1,6 @@
 ## API методы
 
-### POST /api/login - авторизация
+### POST https://foreach-project.ru/api/login - авторизация
 
 Request example
 ```
@@ -18,7 +18,7 @@ Response example
 }
 ```
 
-### GET /api/payment - получение данных о платеже
+### GET https://foreach-project.ru/api/payment - получение данных о платеже
 
 Request example
 ```
@@ -50,7 +50,7 @@ Response example
 ```
 
 
-### POST /api/payment - добавление платежа
+### POST https://foreach-project.ru/api/payment - добавление платежа
 
 Request example
 ```

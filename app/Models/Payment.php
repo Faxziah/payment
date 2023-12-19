@@ -12,6 +12,12 @@ class Payment extends Model
     public $timestamps = false;
 
     public $fillable = [
+        'outer_payment_id',
+        'type',
+        'user_login',
+        'requisites',
+        'sum',
+        'currency',
         'status'
     ];
 }

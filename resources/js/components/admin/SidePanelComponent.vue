@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer :width="250" class="mr-6">
+    <v-navigation-drawer :width="700" class="mr-6">
         <v-list-item-title>Административный раздел</v-list-item-title>
         <v-list-item-subtitle>Категории</v-list-item-subtitle>
         <v-divider class="mb-2"></v-divider>
