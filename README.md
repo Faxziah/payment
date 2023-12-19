@@ -1,11 +1,10 @@
-## API методы
-
 Тестовые данные
 ```
 email - admin@admin.com
 пароль - 12345678
 ```
 
+## API методы
 
 ### POST https://foreach-project.ru/api/login - авторизация
 
