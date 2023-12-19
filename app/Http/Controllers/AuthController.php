@@ -22,6 +22,8 @@ class AuthController extends Controller
             $user->update(['api_token' => hash('sha256', $token)]);
 
             $data = [
+                'status' => 'success',
+                'code' => '200',
                 'url' => route('admin.dashboard'),
                 'api_token' => $token
             ];

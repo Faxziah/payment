@@ -1,5 +1,12 @@
 ## API методы
 
+Тестовые данные
+```
+email - admin@admin.com
+пароль - 12345678
+```
+
+
 ### POST https://foreach-project.ru/api/login - авторизация
 
 Request example
@@ -13,6 +20,8 @@ Request example
 Response example
 ```
 {
+    "status": "success",
+    "code": "200",
     "url": "http://127.0.0.1:8000/admin/dashboard",
     "api_token": "htHchrkllH442nL9CV5h1VPXZCqrwNRu9d9zXfuALPYcMuup3JnDQy6ZlB2A"
 }
@@ -23,8 +32,8 @@ Response example
 Request example
 ```
 {
-user_login: admin,
-outer_payment_id: 44
+    user_login: admin,
+    outer_payment_id: 44
 }
 ```
 
